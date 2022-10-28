@@ -9,7 +9,7 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - /path/to/appdata/config:/config
+      - ./appdata/config:/config
     ports:
       - 5055:5055
     restart: unless-stopped
@@ -23,9 +23,9 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - /path/to/data:/config
-      - /path/to/movies:/movies #optional
-      - /path/to/downloadclient-downloads:/downloads #optional
+      - ./data:/config
+      - .movies:/movies #optional
+      - .downloadclient-downloads:/downloads #optional
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -39,9 +39,9 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - /path/to/data:/config
-      - /path/to/tvseries:/tv #optional
-      - /path/to/downloadclient-downloads:/downloads #optional
+      - ./data:/config
+      - ./tvseries:/tv #optional
+      - ./downloadclient-downloads:/downloads #optional
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -55,7 +55,7 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - /path/to/data:/config
+      - ./data:/config
     ports:
       - 9696:9696
     restart: unless-stopped
