@@ -53,6 +53,20 @@ services:
       - prowlarr
 
 
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /prowlarr/data:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
+
+
   deluge:
     image: lscr.io/linuxserver/deluge:latest
     container_name: deluge
@@ -72,20 +86,6 @@ services:
     depends_on:
       - sonarr
       - radarr
-
-
-  prowlarr:
-    image: lscr.io/linuxserver/prowlarr:develop
-    container_name: prowlarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-    volumes:
-      - /prowlarr/data:/config
-    ports:
-      - 9696:9696
-    restart: unless-stopped
 
 
   plex:
