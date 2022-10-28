@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
 
   overseerr:
@@ -7,9 +7,9 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Europe/London
+      - TZ=America/New_York
     volumes:
-      - ./appdata/config:/config
+      - ./srv/config/overseerr:/app/config
     ports:
       - 5055:5055
     restart: unless-stopped
@@ -23,12 +23,15 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - ./data:/config
-      - ./movies:/movies #optional
-      - ./downloadclient-downloads:/downloads #optional
+      - ./radarr/data:/config
+      - ./radarr/movies:/movies #optional
+      - ./radarr/downloadclient-downloads:/downloads #optional
     ports:
       - 7878:7878
     restart: unless-stopped
+    depends_on:
+      - overseerr
+      - prowlarr
 
 
   sonarr:
@@ -39,26 +42,15 @@ services:
       - PGID=1000
       - TZ=Europe/London
     volumes:
-      - ./data:/config
-      - ./tvseries:/tv #optional
-      - ./downloadclient-downloads:/downloads #optional
+      - ./sonarr/data:/config
+      - ./sonarr/tvseries:/tv #optional
+      - ./sonarr/downloadclient-downloads:/downloads #optional
     ports:
-      - 8989:8989
-    restart: unless-stopped
-
-
-  prowlarr:
-    image: lscr.io/linuxserver/prowlarr:develop
-    container_name: prowlarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-    volumes:
-      - ./data:/config
-    ports:
-      - 9696:9696
-    restart: unless-stopped
+        - 8989:8989
+    restart: unless-stopped  
+    depends_on:
+      - overseerr
+      - prowlarr
 
 
   deluge:
@@ -70,26 +62,46 @@ services:
       - TZ=Europe/London
       - DELUGE_LOGLEVEL=error #optional
     volumes:
-      - ./deluge/config:/config
-      - ./downloads:/downloads
+      - ./deluge/deluge/config:/config
+      - ./deluge/your/downloads:/downloads
     ports:
       - 8112:8112
       - 6881:6881
       - 6881:6881/udp
     restart: unless-stopped
+    depends_on:
+      - sonarr
+      - radarr
+
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /prowlarr/data:/config
+    ports:
+      - 9696:9696
+    restart: unless-stopped
 
 
   plex:
-    image: lscr.io/linuxserver/plex:latest
+    image: lscr.io/linuxserver/plex
     container_name: plex
-    network_mode: host
+    ports:
+      - 32400:32400
     environment:
       - PUID=1000
       - PGID=1000
       - VERSION=docker
-      #- PLEX_CLAIM= #optional#
+      - PLEX_CLAIM= #optional
     volumes:
-      - ./library:/config
-      - ./tvseries:/tv
-      - ./movies:/movies
+      - ./plex/library:/config
+      - ./plex/tvseries:/tv
+      - ./plex/movies:/movies
     restart: unless-stopped
+    depends_on:
+      - deluge
