@@ -1,0 +1,60 @@
+{
+    "file": 2,
+    "format": 1
+}{
+    "base": "/",
+    "cert": "ssl/daemon.cert",
+    "default_daemon": "",
+    "enabled_plugins": [],
+    "first_login": false,
+    "https": false,
+    "interface": "0.0.0.0",
+    "language": "",
+    "pkey": "ssl/daemon.pkey",
+    "port": 8112,
+    "pwd_salt": "c26ab3bbd8b137f99cd83c2c1c0963bcc1a35cad",
+    "pwd_sha1": "2ce1a410bcdcc53064129b6d950f2e9fee4edc1e",
+    "session_timeout": 3600,
+    "sessions": {
+        "2dd58d431a51ce1b4f9cf72d92243e5e4bd1583c39cb19520fb2ca34473aee3f": {
+            "expires": 1669142188.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "4e488810488ff7cc8b6bb178e5b6b616a63270785a3fd4767c548a34bc1a6eee": {
+            "expires": 1669142183.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "4fd967cf6c3ccfc96baa21244dae489899a2730e5b69c796063a64bfbd819eec": {
+            "expires": 1669142190.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "6c11c94395a6b99f652621f5d3ee6558237b6bd83081811d2244862c423d0754": {
+            "expires": 1669142190.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "71237b94bbd2e131911367e52a1143be39c34b65ec41aafe73a694e3fcc6c699": {
+            "expires": 1669142190.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "9b87af020d51961560574818e07e55e31b4d68e2ab35791b346b4e39e7cc4aa7": {
+            "expires": 1669142210.0,
+            "level": 10,
+            "login": "admin"
+        },
+        "f821408dfdbd885ad87e3bc0fcdc5239cd2a015dc833041e15269d73bd22d47d": {
+            "expires": 1669142190.0,
+            "level": 10,
+            "login": "admin"
+        }
+    },
+    "show_session_speed": false,
+    "show_sidebar": true,
+    "sidebar_multiple_filters": true,
+    "sidebar_show_zero": false,
+    "theme": "gray"
+}
