@@ -7,9 +7,9 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=America/New_York
+      - TZ=Europe/London
     volumes:
-      - ./srv/config/overseerr:/app/config
+      - ./srv/config/overseerr:/config
     ports:
       - 5055:5055
     restart: unless-stopped
@@ -24,8 +24,8 @@ services:
       - TZ=Europe/London
     volumes:
       - ./radarr/data:/config
-      - ./radarr/movies:/movies #optional
-      - ./radarr/downloadclient-downloads:/downloads #optional
+      - ./movies:/movies
+      - ./downloads:/downloads
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -43,8 +43,8 @@ services:
       - TZ=Europe/London
     volumes:
       - ./sonarr/data:/config
-      - ./sonarr/tvseries:/tv #optional
-      - ./sonarr/downloadclient-downloads:/downloads #optional
+      - ./tvseries:/tv
+      - ./downloads:/downloads
     ports:
         - 8989:8989
     restart: unless-stopped  
@@ -74,10 +74,10 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/London
-      - DELUGE_LOGLEVEL=error #optional
+      - DELUGE_LOGLEVEL=error
     volumes:
-      - ./deluge/deluge/config:/config
-      - ./deluge/your/downloads:/downloads
+      - ./deluge/deluge_conf/config:/config
+      - ./downloads:/downloads
     ports:
       - 8112:8112
       - 6881:6881
@@ -99,9 +99,9 @@ services:
       - VERSION=docker
       - PLEX_CLAIM= #optional
     volumes:
-      - ./plex/library:/config
-      - ./plex/tvseries:/tv
-      - ./plex/movies:/movies
+      - ./plex_conf/library:/config
+      - ./tvseries:/tv
+      - ./movies:/movies
     restart: unless-stopped
     depends_on:
       - deluge
